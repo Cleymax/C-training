@@ -1,3 +1,9 @@
+/*
+ * File: exo3.c
+ * Created on Fri Nov 04 2022
+ * Author: Clément PERRIN
+ */
+
 #include <stdio.h>
 
 void fibonacci(int u);
