@@ -6,45 +6,42 @@
 
 #include <stdio.h>
 
-struct Etudiant
-{
-    char nom[20];
-    char prenom[20];
-    int age;
-    int note;
-};
-
+#define STUDENTS 5
 
 int main(int argc, char const *argv[])
 {
-    int studentCount = 2;
 
-    struct Etudiant clement = {"Clement", "Boussard", 20, 18};
-    struct Etudiant alexandre = {"Alexandre", "Boussard", 20, 20};
+    int studentsInformation[STUDENTS][3][100];
+    int grades[STUDENTS][2];
 
-
-
-    int gradesCount = 2;
-
-    int grades[studentCount][gradesCount];
-
-    for (int i = 0; i < studentCount; i++)
+    for (int i = 0; i < STUDENTS; i++)
     {
-        for (int j = 0; j < gradesCount; j++)
-        {
-            printf("Entrez la note %d de %s : ", j + 1, students[i].prenom);
-            scanf("%d", &grades[i][j]);
-        }
+        printf("Student %d:\n", i + 1);
+        printf("\tFirst name: ");
+        scanf("%s", studentsInformation[i][0]);
+        while (getchar() != '\n');
+        printf("\tLast name: ");
+        scanf("%s", studentsInformation[i][1]);
+        while (getchar() != '\n');
+        printf("\tAddress: ");
+        scanf("%s", studentsInformation[i][2]);
+        while (getchar() != '\n');
+        printf("\tGrade Programation C: ");
+        scanf("%d", &grades[i][0]);
+        while (getchar() != '\n');
+        printf("\tGrade System: ");
+        scanf("%d", &grades[i][1]);
+        while (getchar() != '\n');
     }
 
-    for (int i = 0; i < studentCount; i++)
+    for (int i = 0; i < STUDENTS; i++)
     {
-        int sum = 0;
-        for (int j = 0; j < gradesCount; j++)
-        {
-            sum += grades[i][j];
-        }
-        printf("La moyenne de l'étudiant %s est de %d.\n", students[i].prenom, sum / gradesCount);
+        printf("Student %d:\n", i + 1);
+        printf("\tFirst name: %s\n", studentsInformation[i][0]);
+        printf("\tLast name: %s\n", studentsInformation[i][1]);
+        printf("\tAddress: %s\n", studentsInformation[i][2]);
+        printf("\tGrade Programation C: %d\n", grades[i][0]);
+        printf("\tGrade System: %d\n", grades[i][1]);
     }
 
     return 0;
