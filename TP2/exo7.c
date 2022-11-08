@@ -10,19 +10,19 @@
 
 #define SIZE 10
 
-typedef struct
+struct Color
 {
     unsigned char red;
     unsigned char green;
     unsigned char blue;
     unsigned char alpha;
-} Color;
+} ;
 
 int main(int argc, char const *argv[])
 {
     srand(time(NULL));
 
-    Color colors[SIZE];
+    struct Color colors[SIZE];
 
     for (int i = 0; i < SIZE; i++)
     {
