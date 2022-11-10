@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
+#include <string.h>
 #include "exo2.h"
 
 int main(int argc, char const *argv[])
@@ -30,13 +31,25 @@ void lire_dossier_recursif(char *path)
     {
         while ((dir = readdir(d)) != NULL)
         {
+
             if (dir->d_type == DT_DIR)
             {
-                // TODO : récursivité
+                if (strcmp(dir->d_name, "..") != 0 && strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, ".git") != 0)
+                {
+                    printf("[d] %s\n", dir->d_name);
+
+                    char *temp = malloc(strlen(path) + strlen("/") + 256);
+                    strcat(temp, path);
+                    strcat(temp, "/");
+                    strcat(temp, dir->d_name);
+
+                    lire_dossier_recursif(temp);
+                    free(temp);
+                }
             }
             else
             {
-                printf("%s\n", dir->d_name);
+                printf("[f] %s\n", dir->d_name);
             }
         }
         closedir(d);
