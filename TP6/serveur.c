@@ -26,10 +26,21 @@ void plot(char *data)
   int n;
   char *saveptr = NULL;
   char *str = data;
+
+
+  char *token = strtok_r(str, ",", &saveptr);
+  str = NULL;
+  int colorcount = 0;
+  sscanf(token, "couleurs: %d", &colorcount);
+
+  printf("colorcount = %d", colorcount);
+
   fprintf(p, "set xrange [-15:15]\n");
   fprintf(p, "set yrange [-15:15]\n");
   fprintf(p, "set style fill transparent solid 0.9 noborder\n");
-  fprintf(p, "set title 'Top 10 colors'\n");
+  fprintf(p, "set title 'Top ");
+  fprintf(p, "%d", colorcount);
+  fprintf(p, " colors'\n");
   fprintf(p, "plot '-' with circles lc rgbcolor variable\n");
   while (1)
   {
@@ -40,7 +51,14 @@ void plot(char *data)
     }
     str = NULL;
     printf("%d: %s\n", count, token);
-    if (count == 1)
+
+    if (count == 0)
+    {
+      // split token with , delimiter
+      int colorcount = 0;
+      sscanf(token, "couleurs: %d", &colorcount);
+    }
+    else if (count == 1)
     {
       n = atoi(token);
       printf("n = %d\n", n);
@@ -78,7 +96,7 @@ int renvoie_message(int client_socket_fd, char *data)
 int recois_envoie_message(int socketfd)
 {
   struct sockaddr_in client_addr;
-  char data[1024];
+  char data[2048];
 
   unsigned int client_addr_len = sizeof(client_addr);
 
@@ -161,7 +179,7 @@ int main()
   }
 
   // Écouter les messages envoyés par le client
-  listen(socketfd, 10);
+  listen(socketfd, 5);
 
   // Lire et répondre au client
   recois_envoie_message(socketfd);

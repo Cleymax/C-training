@@ -62,10 +62,19 @@ void analyse(char *pathname, char *data)
 {
   // compte de couleurs
   couleur_compteur *cc = analyse_bmp_image(pathname);
+  int total = 0;
+  printf("Combien de couleurs voulez-vous afficher ? (max 30):");
+  scanf("%d", &total);
+
+  if (total > 30)
+  {
+    total = 30;
+  }
 
   int count;
   strcpy(data, "couleurs: ");
-  char temp_string[10] = "10,";
+  char temp_string[10] = "";
+  sprintf(temp_string, "%d,", total);
   if (cc->size < 10)
   {
     sprintf(temp_string, "%d,", cc->size);
